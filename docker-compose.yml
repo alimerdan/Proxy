@@ -16,3 +16,5 @@ services:
     build:
       context: .
       dockerfile: GatewayService/Dockerfile
+    ports:
+       - "8080:443"
