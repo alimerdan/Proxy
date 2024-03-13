@@ -1,6 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 
-namespace Gateway.Okta
+namespace GatewayService.Okta
 {
     public interface IJwtValidator
     {

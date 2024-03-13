@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 
-namespace Gateway.Controllers
+namespace GatewayService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -9,14 +9,14 @@ namespace Gateway.Controllers
     {
         private readonly ILogger<GatewayController> _logger;
         private readonly Okta.IJwtValidator _validationService;
-
+        private const string coreServiceURL = "http://coreservice/core/Handle";
         public GatewayController(ILogger<GatewayController> logger, Okta.IJwtValidator validationService)
         {
             _logger = logger;
             _validationService = validationService;
         }
 
-        [HttpGet("proxy/{target_id}/{*target_endpoint}")]
+        [HttpGet("Proxy/{target_id}/{*target_endpoint}")]
         public async Task<IActionResult> GetProxied([FromHeader(Name = "Proxy-Authorization")] string proxyAuthorizationHeader, [FromHeader(Name = "Authorization")] string authorizationHeader, string target_id, string target_endpoint)
         {
             //var authToken = this.HttpContext.Request.Headers["Authorization"].ToString();
@@ -35,11 +35,12 @@ namespace Gateway.Controllers
             }
 
 
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://dev-88454646.okta.com/oauth2/ausf2z5fpnJX9G6VR5d7/.well-known/openid-configuration");
+            HttpClient httpClient = new();
+            httpClient.BaseAddress = new Uri($"{coreServiceURL}/{target_id}/{target_endpoint}");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authorizationHeader);
             HttpResponseMessage response = httpClient.GetAsync(httpClient.BaseAddress).Result;
-            return new JsonResult(response);
+            string responseJson = response.Content.ReadAsStringAsync().Result;
+            return StatusCode(((int)response.StatusCode), responseJson);
         }
     }
 }

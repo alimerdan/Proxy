@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "gatewayservice",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "serviceActions": {
+        "coreservice": "StartDebugging",
+        "gatewayservice": "StartDebugging",
+        "targetresolverservice": "StartDebugging"
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿namespace Gateway.Okta
+﻿namespace GatewayService.Okta
 {
     public class OktaJwtVerificationOptions
     {

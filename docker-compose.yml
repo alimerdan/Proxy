@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  targetresolverservice:
+    image: ${DOCKER_REGISTRY-}targetresolver
+    build:
+      context: .
+      dockerfile: TargetResolverService/Dockerfile
+  coreservice:
+    image: ${DOCKER_REGISTRY-}core
+    build:
+      context: .
+      dockerfile: CoreService/Dockerfile
+  gatewayservice:
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: GatewayService/Dockerfile

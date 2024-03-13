@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Gateway.Okta
+namespace GatewayService.Okta
 {
     public class OktaJwtValidation : IJwtValidator
     {
@@ -58,8 +58,7 @@ namespace Gateway.Okta
             }
             catch (Exception e)
             {
-                // Logging, etc.
-
+                Console.WriteLine(e);
                 return null;
             }
         }

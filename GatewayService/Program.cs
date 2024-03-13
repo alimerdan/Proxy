@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
-
-namespace Gateway
+namespace GatewayService
 {
     public class Program
     {
@@ -43,9 +40,9 @@ namespace Gateway
             //});
 
             // Adding OKTA Integration
-            builder.Services.Configure<Gateway.Okta.OktaJwtVerificationOptions>(
+            builder.Services.Configure<GatewayService.Okta.OktaJwtVerificationOptions>(
 builder.Configuration.GetSection("Okta"));
-            builder.Services.AddTransient<Gateway.Okta.IJwtValidator, Gateway.Okta.OktaJwtValidation>();
+            builder.Services.AddTransient<GatewayService.Okta.IJwtValidator, GatewayService.Okta.OktaJwtValidation>();
 
             var app = builder.Build();
 
